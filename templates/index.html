@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Exam Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #059669;
+            --success-hover: #047857;
+            --accent-color: #f97316;
+            --background-color: #f1f5f9;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: -0.025em;
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0;
+            letter-spacing: -0.025em;
+        }
+
+        #container {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            transition: var(--transition);
+        }
+
+        #container:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        #video {
+            width: 100%;
+            max-width: 500px;
+            border: 3px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            margin: 1rem auto;
+            display: block;
+        }
+
+        #video:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        #capture {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: block;
+            margin: 1.5rem auto;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        #capture:hover {
+            background-color: var(--success-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #capture:active {
+            transform: translateY(0);
+        }
+
+        #student-info {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #e2e8f0;
+            margin: 1.5rem auto;
+            max-width: 600px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        #student-info strong {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-block;
+            width: 120px;
+        }
+
+        #seat-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 500px;
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            border: 1px solid #e2e8f0;
+        }
+
+        .seat {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .seat:hover {
+            transform: scale(1.05);
+            background: #cbd5e1;
+        }
+
+        .seat.highlight {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3);
+        }
+
+        #loading {
+            display: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: #dbeafe;
+            border-radius: var(--border-radius);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            #container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            #seat-grid {
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .seat {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Face Recognition Examination Portal</h2>
+    
+    <div id="container">
+        <video id="video" autoplay></video>
+        <br>
+        <button id="capture">Capture</button>
+        <p id="loading">Processing... Please wait.</p>
+        <canvas id="canvas" style="display:none;"></canvas>
+
+        <h3>Student Details</h3>
+        <p id="student-info">Waiting for recognition...</p>
+
+        <h3>Seat Map</h3>
+        <div id="seat-grid"></div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const captureButton = document.getElementById('capture');
+        const studentInfo = document.getElementById('student-info');
+        const seatGrid = document.getElementById('seat-grid');
+        const loadingIndicator = document.getElementById('loading');
+
+        // Create a 5x4 seat grid (20 seats)
+        function generateSeatGrid() {
+            seatGrid.innerHTML = ""; // Clear previous grid
+            for (let i = 1; i <= 20; i++) {
+                let seat = document.createElement("div");
+                seat.classList.add("seat");
+                seat.textContent = i; // Seat number
+                seat.setAttribute("data-seat", i);
+                seatGrid.appendChild(seat);
+            }
+        }
+
+        // Highlight the predicted seat
+        function highlightSeat(seatNumber) {
+            document.querySelectorAll(".seat").forEach(seat => {
+                if (seat.getAttribute("data-seat") == seatNumber) {
+                    seat.classList.add("highlight");
+                } else {
+                    seat.classList.remove("highlight");
+                }
+            });
+        }
+
+        // Initialize seat grid on page load
+        generateSeatGrid();
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => { console.error('Error accessing webcam:', err); });
+
+        captureButton.addEventListener('click', () => {
+            // Show loading indicator
+            loadingIndicator.style.display = "block";
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('image', blob, 'capture.jpg');
+
+                fetch('/recognize', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading indicator
+                    loadingIndicator.style.display = "none";
+
+                    if (data.error) {
+                        studentInfo.innerHTML = `<strong>Error:</strong> ${data.error} <br> Confidence: ${data.confidence}`;
+                    } else {
+                        studentInfo.innerHTML = `
+                            <strong>Name:</strong> ${data.name} <br>
+                            <strong>Exam:</strong> ${data.exam} <br>
+                            <strong>Classroom:</strong> ${data.classroom} <br>
+                            <strong>Seat No:</strong> ${data.seat_no} <br>
+                            <strong>Attendance:</strong> ${data.attendance}
+                        `;
+
+                        // Highlight the seat number of the recognized student
+                        highlightSeat(data.seat_no);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    loadingIndicator.style.display = "none";
+                });
+            }, 'image/jpeg');
+        });
+    </script>
+</body>
+</html>
