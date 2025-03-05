@@ -1,68 +1,66 @@
-Face Recognition-Based Student Login & Exam Attendance
+# Face Recognition-Based Student Login & Exam Attendance
 
-Overview
+## Overview
 
 This project is a prototype for a face recognition-based student login and exam attendance system. It allows students to log in using facial recognition, mark their exam attendance, and retrieve their exam details (such as subject name, class number, and seat number). The project is built using Flask for the backend and HTML, CSS, and JavaScript for the frontend. Custom CNN is used for face recognition.
 
-Features
+## Features
 
-Student Login via Face Recognition
+- **Student Login via Face Recognition**
+- **Automated Exam Attendance Recording**
+- **Retrieval of Exam Details** (Subject Name, Class Number, Seat Number)
+- **Admin Panel for Management**
+- **CSV-Based Data Storage** for Students and Attendance
+- **Custom Model Training**: You need to train your own face recognition model and generate `students.csv` for storing student details.
 
-Automated Exam Attendance Recording
+## Tech Stack
 
-Retrieval of Exam Details (Subject Name, Class Number, Seat Number)
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Flask (Python)
+- **Machine Learning Model:** Custom CNN
+- **Database:** CSV files for storing student and attendance data
 
-Admin Panel for Management
+## Installation & Setup
 
-CSV-Based Data Storage for Students and Attendance
+1. **Clone the repository**
 
-Custom Model Training: You need to train your own face recognition model and generate students.csv for storing student details.
+   ```sh
+   git clone https://github.com/maaazzinn/FaceCertify
+   cd FaceCertify
+   ```
 
-Tech Stack
+2. **Create a virtual environment and activate it**
 
-Frontend: HTML, CSS, JavaScript
+   ```sh
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
 
-Backend: Flask (Python)
+3. **Install dependencies**
 
-Machine Learning Model: Custom CNN
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-Database: CSV files for storing student and attendance data
+4. **Train Your Model**
 
-Installation & Setup
+   - Collect images of students.
+   - Train a custom CNN model for face recognition.
+   - Save the trained model as `keras_model.h5` and labels in `labels.txt`.
+   - Create `students.csv` containing student details.
 
-Clone the repository
+5. **Run the Flask app**
 
-git clone https://github.com/maaazzinn/FaceCertify
-cd FaceCertify
+   ```sh
+   python app.py
+   ```
 
-Create a virtual environment and activate it
+6. **Access the Web Interface**
+   Open `http://127.0.0.1:5000/` in your browser.
 
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+## Project Structure
 
-Install dependencies
-
-pip install -r requirements.txt
-
-Train Your Model
-
-Collect images of students.
-
-Train a custom CNN model for face recognition.
-
-Save the trained model as keras_model.h5 and labels in labels.txt.
-
-Create students.csv containing student details.
-
-Run the Flask app
-
-python app.py
-
-Access the Web Interface
-Open http://127.0.0.1:5000/ in your browser.
-
-Project Structure
-
+```
 final/
 │-- app.py               # Main application script
 │-- requirements.txt     # Required dependencies
@@ -75,30 +73,26 @@ final/
 │   │-- home.html        # Homepage
 │   │-- admin.html       # Admin panel
 │   │-- admin_login.html # Admin login page
+```
 
-Usage
+## Usage
 
-Admin Panel: Manage student records and monitor attendance.
+1. **Admin Panel**: Manage student records and monitor attendance.
+2. **Student Login**: Recognizes students using the trained face recognition model.
+3. **Attendance System**: Automatically marks student attendance upon login.
+4. **Exam Seat Retrieval**: Displays assigned exam details upon successful login.
 
-Student Login: Recognizes students using the trained face recognition model.
+## Future Enhancements
 
-Attendance System: Automatically marks student attendance upon login.
+- Integration with a database for better data management.
+- Enhancing model accuracy with a larger dataset.
+- Deploying as a cloud-based solution for real-world use.
 
-Exam Seat Retrieval: Displays assigned exam details upon successful login.
-
-Future Enhancements
-
-Integration with a database for better data management.
-
-Enhancing model accuracy with a larger dataset.
-
-Deploying as a cloud-based solution for real-world use.
-
-Contributing
+## Contributing
 
 Feel free to fork this repository and submit pull requests with improvements.
 
-License
+## License
 
 This project is open-source and available under the MIT License.
 
